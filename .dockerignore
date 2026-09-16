@@ -1,0 +1,30 @@
+# Version control
+.git
+.gitignore
+
+# Environment files with secrets
+.env
+*.env
+!.env.example
+
+# Local databases & uploads
+*.db
+*.sqlite
+finadvisor.db
+finlens.db
+data/chroma_db
+data/uploads/*
+!data/uploads/.gitkeep
+!data/sample_documents
+
+# Virtual environments & caches
+.venv
+.venv-*
+venv
+__pycache__
+*.pyc
+.pytest_cache
+
+# Node dependencies (reinstalled in build stage)
+frontend/node_modules
+frontend/dist
