@@ -33,7 +33,7 @@ class ChromaRetriever:
     ChromaDB persistent vector store manager for financial document chunks.
     Supports cosine similarity retrieval, metadata filtering, and collection maintenance.
     """
-    COLLECTION_NAME = "finadvisor_financial_chunks"
+    COLLECTION_NAME = "finlens_financial_chunks"
     _instance: Optional["ChromaRetriever"] = None
     _lock = threading.Lock()
 

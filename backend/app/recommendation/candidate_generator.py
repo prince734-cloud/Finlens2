@@ -1,5 +1,5 @@
 """
-FinAdvisor — Candidate Generator
+FinLens — Candidate Generator
 Queries and standardizes companies and mutual funds from the research data layer
 into unified CandidateAsset models with normalized risk and horizon classifications.
 """

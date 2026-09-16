@@ -1,5 +1,5 @@
 """
-FinAdvisor Hybrid Search Engine.
+FinLens Hybrid Search Engine.
 
 Fuses Sparse Lexical Search (BM25Okapi) and Dense Semantic Search (ChromaDB)
 using Reciprocal Rank Fusion (RRF). 

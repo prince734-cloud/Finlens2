@@ -1,5 +1,5 @@
 """
-FinAdvisor Cross-Encoder Reranker.
+FinLens Cross-Encoder Reranker.
 
 Applies deep cross-attention re-scoring to candidate chunks retrieved from
 hybrid search. Unlike bi-encoders (which encode query and document separately),

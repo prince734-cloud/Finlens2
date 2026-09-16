@@ -1,5 +1,5 @@
 """
-Unit and integration tests for FinAdvisor Phase 5:
+Unit and integration tests for FinLens Phase 5:
 1. User Investment Profile CRUD (GET, POST, PUT, validation)
 2. Company Research Data Layer (seed, list, search, sector filter, upsert)
 3. Mutual Fund Research Data Layer (seed, list, category filter, risk filter, upsert)

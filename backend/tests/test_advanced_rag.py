@@ -1,5 +1,5 @@
 """
-Unit and integration tests for FinAdvisor Phase 3: Advanced RAG Engine.
+Unit and integration tests for FinLens Phase 3: Advanced RAG Engine.
 
 Tests:
 1. Financial-aware BM25 tokenization

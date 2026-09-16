@@ -10,7 +10,7 @@
 # Local databases & uploads
 *.db
 *.sqlite
-finadvisor.db
+finlens.db
 finlens.db
 data/chroma_db
 data/uploads/*

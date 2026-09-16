@@ -10,7 +10,7 @@ from backend.app.main import app
 async def test_app_config():
     """Validates configuration parameters."""
     assert settings.APP_NAME is not None
-    assert "FinAdvisor" in settings.APP_NAME
+    assert "FinLens" in settings.APP_NAME
     assert settings.PORT == 8000
     assert settings.VECTOR_STORE_BACKEND in ["chroma", "pgvector"]
 

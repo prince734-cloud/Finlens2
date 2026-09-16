@@ -1,5 +1,5 @@
 """
-FinAdvisor Financial Query Rewriter & Decomposer.
+FinLens Financial Query Rewriter & Decomposer.
 
 Provides domain-specific query expansion and multi-intent query decomposition
 for financial document RAG.

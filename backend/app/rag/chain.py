@@ -1,5 +1,5 @@
 """
-FinAdvisor LCEL Advanced RAG Execution Engine.
+FinLens LCEL Advanced RAG Execution Engine.
 
 Constructs composable, high-speed, streaming-capable RAG pipelines using
 LangChain Expression Language (LCEL) primitives:
@@ -213,7 +213,7 @@ class FinancialRAGPipeline:
         if not chunks:
             if retriever.count() == 0:
                 empty_msg = (
-                    "Welcome to FinAdvisor! There are currently no financial documents indexed in the system. "
+                    "Welcome to FinLens! There are currently no financial documents indexed in the system. "
                     "Please upload an annual report, 10-K, or mutual fund factsheet in the Documents tab "
                     "to begin querying grounded financial intelligence."
                 )

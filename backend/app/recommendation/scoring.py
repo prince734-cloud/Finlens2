@@ -1,5 +1,5 @@
 """
-FinAdvisor — Multi-Factor Deterministic Scoring Engine
+FinLens — Multi-Factor Deterministic Scoring Engine
 Calculates transparent mathematical suitability scores (0-100) across 5 weighted dimensions:
 1. Risk Compatibility (30 pts)
 2. Investment Horizon Suitability (25 pts)

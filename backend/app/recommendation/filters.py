@@ -1,5 +1,5 @@
 """
-FinAdvisor — Hard Constraint Filters
+FinLens — Hard Constraint Filters
 Applies fiduciary and suitability rules to screen out unsuitable assets
 based on the user's risk tolerance, investment horizon, and primary goal.
 """

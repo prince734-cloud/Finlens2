@@ -13,7 +13,7 @@ from backend.app.config import settings
 from backend.app.utils.logger import logger
 
 
-SYSTEM_FINANCIAL_RAG_PROMPT = """You are FinAdvisor, an institutional-grade financial intelligence and investment research AI assistant.
+SYSTEM_FINANCIAL_RAG_PROMPT = """You are FinLens, an institutional-grade financial intelligence and investment research AI assistant.
 Your responsibility is to provide precise, factual, evidence-grounded answers based STRICTLY on the retrieved financial document excerpts provided below.
 
 CRITICAL INSTRUCTIONS & HALLUCINATION CONTROLS:

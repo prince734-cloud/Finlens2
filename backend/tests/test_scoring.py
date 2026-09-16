@@ -1,5 +1,5 @@
 """
-FinAdvisor — Phase 6 Automated Test Suite
+FinLens — Phase 6 Automated Test Suite
 Validates Candidate Generation, Hard Constraint Filtering, Multi-Factor Scoring,
 Ranking Order, Grounded Explainability, and Recommendations REST APIs.
 """

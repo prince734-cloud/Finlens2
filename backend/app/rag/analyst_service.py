@@ -1,5 +1,5 @@
 """
-FinAdvisor Unified AI Financial Analyst Service.
+FinLens Unified AI Financial Analyst Service.
 
 Coordinates intelligent query routing, multi-turn conversational context,
 and domain-specific execution across:
@@ -42,13 +42,13 @@ from backend.app.utils.logger import logger
 
 
 REGULATORY_DISCLAIMER = (
-    "FinAdvisor provides automated educational analysis and mathematical suitability research. "
+    "FinLens provides automated educational analysis and mathematical suitability research. "
     "This does not constitute personalized financial advice, fiduciary investment recommendation, "
     "or a guarantee of future capital returns. Please consult a SEBI/SEC licensed financial advisor "
     "before making capital allocation decisions."
 )
 
-COMPANY_ANALYSIS_SYSTEM_PROMPT = """You are FinAdvisor, an institutional equity research analyst.
+COMPANY_ANALYSIS_SYSTEM_PROMPT = """You are FinLens, an institutional equity research analyst.
 Analyze the company fundamentals provided strictly in the AUDITED FINANCIAL DATASET below.
 
 CRITICAL CONSTRAINTS:
@@ -60,7 +60,7 @@ CRITICAL CONSTRAINTS:
 5. Missing Data: If a metric is absent or a company is not in the dataset, explicitly state that verified records are not available.
 """
 
-MUTUAL_FUND_SYSTEM_PROMPT = """You are FinAdvisor, an institutional mutual fund and wealth research analyst.
+MUTUAL_FUND_SYSTEM_PROMPT = """You are FinLens, an institutional mutual fund and wealth research analyst.
 Analyze the fund factsheet metrics provided strictly in the VERIFIED FUND DATASET below.
 
 CRITICAL CONSTRAINTS:
@@ -70,7 +70,7 @@ CRITICAL CONSTRAINTS:
 4. Structure: Use structured tables/bullets for key metrics and clear institutional commentary.
 """
 
-RECOMMENDATION_SYSTEM_PROMPT = """You are FinAdvisor, an institutional portfolio strategist.
+RECOMMENDATION_SYSTEM_PROMPT = """You are FinLens, an institutional portfolio strategist.
 Summarize the mathematically ranked investment recommendations provided below for the client's profile.
 
 CRITICAL CONSTRAINTS:
@@ -80,7 +80,7 @@ CRITICAL CONSTRAINTS:
 4. Disclaimer: Remind the user that past performance does not guarantee future results.
 """
 
-GENERAL_FINANCIAL_SYSTEM_PROMPT = """You are FinAdvisor, a master educator and quantitative finance specialist.
+GENERAL_FINANCIAL_SYSTEM_PROMPT = """You are FinLens, a master educator and quantitative finance specialist.
 Explain financial and investment concepts with rigorous clarity, mathematical formulas where appropriate, and practical examples.
 
 CRITICAL CONSTRAINTS:
@@ -389,7 +389,7 @@ class UnifiedFinancialAnalyst:
 
             citations.append(
                 CitationItem(
-                    document_name="FinAdvisor Deterministic Suitability Engine",
+                    document_name="FinLens Deterministic Suitability Engine",
                     page_number=rank,
                     section=f"Recommendation Rank #{rank}: {item.asset_name}",
                     excerpt=(

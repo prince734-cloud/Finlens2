@@ -21,7 +21,7 @@ export default function Navbar({ activeTab, setActiveTab, systemHealth }) {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-lg font-bold tracking-tight text-white">FinAdvisor</span>
+                <span className="text-lg font-bold tracking-tight text-white">FinLens</span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
                   RAG Intelligence

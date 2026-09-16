@@ -1,1 +1,1 @@
-"""FinAdvisor RAG and Search Engine package."""
+"""FinLens RAG and Search Engine package."""

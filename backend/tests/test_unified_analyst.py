@@ -1,5 +1,5 @@
 """
-FinAdvisor — Phase 7 Automated Test Suite: Unified AI Financial Analyst.
+FinLens — Phase 7 Automated Test Suite: Unified AI Financial Analyst.
 
 Validates:
 1. Intent Classification Engine (Heuristic matching & Entity extraction across 5 domains)
@@ -238,7 +238,7 @@ async def test_chat_streaming_endpoint(async_client: AsyncClient):
 
 async def run_all_tests():
     print("=" * 60)
-    print("FINADVISOR PHASE 7 UNIFIED ANALYST TEST RUNNER")
+    print("FINLENS PHASE 7 UNIFIED ANALYST TEST RUNNER")
     print("=" * 60)
 
     print("\n[1/7] Testing Entity Extraction...")

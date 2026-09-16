@@ -33,12 +33,12 @@ class ProfileResponse(BaseModel):
 
 async def get_or_create_default_user(db: AsyncSession) -> User:
     """Helper to retrieve or create a default demo user for local session development."""
-    stmt = select(User).where(User.email == "demo@finadvisor.ai")
+    stmt = select(User).where(User.email == "demo@finlens.ai")
     result = await db.execute(stmt)
     user = result.scalar_one_or_none()
     
     if not user:
-        user = User(email="demo@finadvisor.ai", full_name="Portfolio Demo Investor")
+        user = User(email="demo@finlens.ai", full_name="Portfolio Demo Investor")
         db.add(user)
         await db.commit()
         await db.refresh(user)

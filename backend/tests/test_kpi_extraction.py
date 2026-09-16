@@ -1,5 +1,5 @@
 """
-Unit and integration tests for FinAdvisor Phase 4: Structured Financial KPI Extraction.
+Unit and integration tests for FinLens Phase 4: Structured Financial KPI Extraction.
 
 Tests:
 1. Financial number parsing and normalization (millions, billions, percentages, negative brackets)

@@ -1,5 +1,5 @@
 """
-FinAdvisor Query Intent Classification Engine.
+FinLens Query Intent Classification Engine.
 
 Classifies incoming financial queries into one of five canonical intents:
 1. DOCUMENT_RAG: Questions regarding uploaded corporate filings, annual reports, 10-Ks,

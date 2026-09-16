@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 from contextlib import asynccontextmanager
 
-# Ensure project root (FinAdvisor) is in sys.path so 'backend' package is resolvable
+# Ensure project root (FinLens) is in sys.path so 'backend' package is resolvable
 # regardless of the working directory or execution method (e.g. VS Code 'Run' button)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
@@ -41,7 +41,7 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"Could not auto-initialize DB tables on startup: {e}")
     yield
-    logger.info("FinAdvisor application shut down gracefully.")
+    logger.info("FinLens application shut down gracefully.")
 
 
 app = FastAPI(

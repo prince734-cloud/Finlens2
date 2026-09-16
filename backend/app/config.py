@@ -8,7 +8,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 # Immediately load environment variables from .env file
 load_dotenv()
 
-# Base directory of FinAdvisor project
+# Base directory of FinLens project
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     # or PostgreSQL when DATABASE_URL is set to postgresql+asyncpg://...
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL", 
-        f"sqlite+aiosqlite:///{BASE_DIR / 'finadvisor.db'}"
+        f"sqlite+aiosqlite:///{BASE_DIR / 'finlens.db'}"
     )
     
     # Vector Store Backend ('chroma' or 'pgvector')

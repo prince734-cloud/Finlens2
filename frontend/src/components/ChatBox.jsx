@@ -48,7 +48,7 @@ export default function ChatBox({ selectedDoc, onClearSelectedDoc, onSelectDoc }
 
   const initialWelcome = selectedDoc
     ? `Hello! I am ready to analyze the annual report for **${selectedDoc.company_name || selectedDoc.filename}**. Every answer will be grounded directly in this report with exact page citations.\n\nAsk me about revenue, net income, operating cash flow, balance sheet metrics, or disclosed risk factors.`
-    : 'Hello! I am FinAdvisor, your institutional AI Financial Intelligence Analyst. Upload an annual report or select one below to ask targeted questions with verifiable source page citations.';
+    : 'Hello! I am FinLens, your institutional AI Financial Intelligence Analyst. Upload an annual report or select one below to ask targeted questions with verifiable source page citations.';
 
   const [messages, setMessages] = useState([
     {
@@ -272,7 +272,7 @@ export default function ChatBox({ selectedDoc, onClearSelectedDoc, onSelectDoc }
                 ? {
                     ...msg,
                     content:
-                      'Unable to complete analysis. Please verify that the FinAdvisor backend server is running.',
+                      'Unable to complete analysis. Please verify that the FinLens backend server is running.',
                     queryType: 'system',
                   }
                 : msg

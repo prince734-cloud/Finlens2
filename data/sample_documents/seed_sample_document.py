@@ -1,5 +1,5 @@
 """
-Seeds the Apple FY2024 sample financial report into the FinAdvisor platform,
+Seeds the Apple FY2024 sample financial report into the FinLens platform,
 executing parsing, recursive chunking, ChromaDB vector indexing, and DB sync.
 """
 import asyncio

@@ -8,7 +8,7 @@ import pymupdf as fitz
 
 
 def create_apple_sample_report(output_path: Optional[str] = None) -> str:
-    """Generates a 3-page realistic financial report excerpt for testing FinAdvisor RAG."""
+    """Generates a 3-page realistic financial report excerpt for testing FinLens RAG."""
     if output_path is None:
         script_dir = Path(__file__).resolve().parent
         output_path = str(script_dir / "Apple_Inc_FY2024_Annual_Report.pdf")

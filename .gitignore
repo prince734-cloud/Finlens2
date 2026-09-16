@@ -7,7 +7,7 @@
 *.db
 *.sqlite
 *.sqlite3
-finadvisor.db
+finlens.db
 finlens.db
 
 # Vector store & uploaded documents
