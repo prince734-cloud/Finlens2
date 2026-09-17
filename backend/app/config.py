@@ -1,8 +1,8 @@
 import os
+import json
 from pathlib import Path
 from typing import List, Optional
 from dotenv import load_dotenv
-from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Immediately load environment variables from .env file
@@ -24,26 +24,21 @@ class Settings(BaseSettings):
     # Server configuration
     HOST: str = os.getenv("HOST", "0.0.0.0")
     PORT: int = int(os.getenv("PORT", "8000"))
-    CORS_ORIGINS: List[str] = [
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ]
+    CORS_ORIGINS: str = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000",
+    )
 
-    @field_validator("CORS_ORIGINS", mode="before")
-    @classmethod
-    def assemble_cors_origins(cls, v):
-        if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",") if i.strip()]
-        elif isinstance(v, (list, str)):
-            return v
-        return [
-            "http://localhost:5173",
-            "http://127.0.0.1:5173",
-            "http://localhost:3000",
-            "http://127.0.0.1:3000",
-        ]
+    @property
+    def cors_origins(self) -> List[str]:
+        """Return CORS origins from either JSON or comma-separated settings."""
+        value = self.CORS_ORIGINS.strip()
+        if not value:
+            return []
+        if value.startswith("["):
+            parsed = json.loads(value)
+            return [str(origin).strip() for origin in parsed if str(origin).strip()]
+        return [origin.strip() for origin in value.split(",") if origin.strip()]
     
     # Database Configuration
     # Defaults to a local SQLite database for instant zero-dependency testing,
@@ -68,6 +63,7 @@ class Settings(BaseSettings):
     LLM_MAX_TOKENS: int = 2048
 
     # API Keys
+    HF_TOKEN: Optional[str] = None
     GROQ_API_KEY: Optional[str] = None
     GROQ_MODEL: str = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
     

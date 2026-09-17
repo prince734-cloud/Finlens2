@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+const configuredApiUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+const API_BASE_URL = (configuredApiUrl || '/api/v1').replace(/\/$/, '');
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
