@@ -50,7 +50,9 @@ ENV PYTHONUNBUFFERED=1 \
     HOST=0.0.0.0 \
     PORT=7860 \
     DEBUG=False \
-    ENVIRONMENT=production
+    ENVIRONMENT=production \
+    OMP_NUM_THREADS=1 \
+    TOKENIZERS_PARALLELISM=false
 
 # Hugging Face Spaces uses 7860; Render/Railway pass dynamic $PORT
 EXPOSE 7860

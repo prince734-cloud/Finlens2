@@ -73,18 +73,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount API v1 routers
+from fastapi import HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+
 app.include_router(documents_router, prefix="/api/v1")
 app.include_router(kpis_router, prefix="/api/v1")
 app.include_router(chat_router, prefix="/api/v1")
 app.include_router(recommendations_router, prefix="/api/v1")
 app.include_router(profile_router, prefix="/api/v1")
 app.include_router(research_router, prefix="/api/v1")
-
-
-from fastapi import HTTPException
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 
 @app.get("/api/v1/health", tags=["Health"])
 async def health_check():

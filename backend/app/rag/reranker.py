@@ -9,9 +9,10 @@ capturing subtle linguistic nuance, conditional negatives, and contextual precis
 
 import math
 import threading
-from typing import List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
-from sentence_transformers import CrossEncoder
+if TYPE_CHECKING:
+    from sentence_transformers import CrossEncoder
 
 from backend.app.config import settings
 from backend.app.rag.retriever import RetrievedChunk
@@ -36,7 +37,7 @@ class CrossEncoderReranker:
 
     def __init__(self, model_name: Optional[str] = None):
         self.model_name = model_name or settings.RERANKER_MODEL_NAME
-        self._model: Optional[CrossEncoder] = None
+        self._model: Optional[object] = None
 
     @classmethod
     def get_instance(cls, model_name: Optional[str] = None) -> "CrossEncoderReranker":
@@ -52,6 +53,8 @@ class CrossEncoderReranker:
         if self._model is None:
             with self._lock:
                 if self._model is None:
+                    from sentence_transformers import CrossEncoder
+
                     logger.info(f"Loading CrossEncoder reranker model: {self.model_name}...")
                     self._model = CrossEncoder(self.model_name)
                     logger.info("CrossEncoder reranker model loaded successfully.")

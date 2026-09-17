@@ -1,10 +1,10 @@
 import threading
-from typing import Any, List, Optional, Union
-from pydantic import SecretStr
+from typing import TYPE_CHECKING, Any, List, Optional, Union
 
-from langchain_core.embeddings import Embeddings
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_mistralai import MistralAIEmbeddings
+if TYPE_CHECKING:
+    from langchain_core.embeddings import Embeddings
+    from langchain_huggingface import HuggingFaceEmbeddings
+    from langchain_mistralai import MistralAIEmbeddings
 
 from backend.app.config import settings
 from backend.app.utils.logger import logger
@@ -22,7 +22,7 @@ class EmbeddingService:
     def __init__(self, model_name: Optional[str] = None, provider: Optional[str] = None):
         self.provider = (provider or settings.EMBEDDING_PROVIDER).lower()
         self.model_name = model_name or settings.EMBEDDING_MODEL_NAME
-        self._embeddings: Optional[Union[HuggingFaceEmbeddings, MistralAIEmbeddings, Embeddings]] = None
+        self._embeddings: Optional[Any] = None
         self._dimension: int = 384
 
     @classmethod
@@ -43,6 +43,10 @@ class EmbeddingService:
         if self._embeddings is None:
             with self._lock:
                 if self._embeddings is None:
+                    from langchain_huggingface import HuggingFaceEmbeddings
+                    from langchain_mistralai import MistralAIEmbeddings
+                    from pydantic import SecretStr
+
                     if self.provider == "mistral" and settings.MISTRAL_API_KEY:
                         try:
                             logger.info(
@@ -64,8 +68,12 @@ class EmbeddingService:
 
                     # Default to local HuggingFaceEmbeddings
                     logger.info(f"Loading local LangChain HuggingFaceEmbeddings: {self.model_name}...")
+                    model_kwargs = {}
+                    if settings.HF_TOKEN:
+                        model_kwargs["token"] = settings.HF_TOKEN
                     self._embeddings = HuggingFaceEmbeddings(
                         model_name=self.model_name,
+                        model_kwargs=model_kwargs,
                         encode_kwargs={"normalize_embeddings": True}
                     )
                     test_vec = self._embeddings.embed_query("financial verification")
@@ -73,7 +81,7 @@ class EmbeddingService:
                     logger.info(f"LangChain HuggingFaceEmbeddings loaded. Dimension: {self._dimension}")
 
     @property
-    def langchain_embeddings(self) -> Union[HuggingFaceEmbeddings, MistralAIEmbeddings, Embeddings]:
+    def langchain_embeddings(self) -> Any:
         """Exposes the underlying LangChain Embeddings model directly."""
         self._ensure_model_loaded()
         assert self._embeddings is not None
