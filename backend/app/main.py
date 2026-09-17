@@ -1,4 +1,5 @@
 import sys
+import asyncio
 from pathlib import Path
 from contextlib import asynccontextmanager
 
@@ -26,11 +27,20 @@ from backend.app.utils.logger import logger
 async def lifespan(app: FastAPI):
     """Application lifespan events: startup and shutdown."""
     logger.info(f"Starting up {settings.APP_NAME} v{settings.APP_VERSION}...")
+    startup_task = asyncio.create_task(initialize_application_data())
+    yield
+    if not startup_task.done():
+        startup_task.cancel()
+        await asyncio.gather(startup_task, return_exceptions=True)
+    logger.info("FinLens application shut down gracefully.")
+
+
+async def initialize_application_data() -> None:
+    """Initialize data after the server starts accepting health checks."""
     try:
         await init_db()
         logger.info("Database initialized successfully on startup.")
 
-        # Seed baseline verified financial research dataset
         from backend.app.data.company_data import seed_company_data
         from backend.app.data.mutual_fund_data import seed_mutual_fund_data
         from backend.app.database.connection import AsyncSessionLocal
@@ -38,10 +48,10 @@ async def lifespan(app: FastAPI):
             await seed_company_data(session)
             await seed_mutual_fund_data(session)
         logger.info("Financial research data layer initialized.")
+    except asyncio.CancelledError:
+        raise
     except Exception as e:
         logger.warning(f"Could not auto-initialize DB tables on startup: {e}")
-    yield
-    logger.info("FinLens application shut down gracefully.")
 
 
 app = FastAPI(
