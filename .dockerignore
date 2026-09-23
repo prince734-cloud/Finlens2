@@ -12,7 +12,6 @@
 *.sqlite
 finlens.db
 finlens.db
-data/chroma_db
 data/uploads/*
 !data/uploads/.gitkeep
 !data/sample_documents

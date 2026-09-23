@@ -10,11 +10,12 @@
 finlens.db
 finlens.db
 
-# Vector store & uploaded documents
-data/chroma_db/
+# Uploaded documents
 data/uploads/
 !data/uploads/.gitkeep
 !data/sample_documents/
+!data/chroma_db/
+!data/chroma_db/**
 
 # Python virtual environment & bytecode
 __pycache__/
