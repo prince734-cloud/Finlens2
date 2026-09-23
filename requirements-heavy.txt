@@ -1,0 +1,9 @@
+# ==============================================================================
+# FinLens Heavy / GPU Dependencies (For >= 4GB RAM, Hugging Face Spaces 16GB, or GPU)
+# Includes local PyTorch, Sentence-Transformers, and Cross-Encoder neural models.
+# ==============================================================================
+
+-r requirements.txt
+torch>=2.2.0
+sentence-transformers>=3.0.0
+langchain-huggingface>=0.1.2

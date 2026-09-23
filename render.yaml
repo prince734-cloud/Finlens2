@@ -11,6 +11,14 @@ services:
         value: production
       - key: DEBUG
         value: "false"
+      - key: LOW_MEMORY_MODE
+        value: "true"
+      - key: USE_CROSS_ENCODER
+        value: "false"
+      - key: MALLOC_ARENA_MAX
+        value: "2"
+      - key: WEB_CONCURRENCY
+        value: "1"
       - key: LLM_PROVIDER
         value: groq
       - key: GROQ_API_KEY
@@ -18,4 +26,10 @@ services:
       - key: GROQ_MODEL
         value: llama-3.3-70b-versatile
       - key: EMBEDDING_PROVIDER
-        value: huggingface
+        value: hf_api
+      - key: HF_TOKEN
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MISTRAL_API_KEY
+        sync: false

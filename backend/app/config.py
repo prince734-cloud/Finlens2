@@ -63,7 +63,11 @@ class Settings(BaseSettings):
     LLM_MAX_TOKENS: int = 2048
 
     # API Keys
-    HF_TOKEN: Optional[str] = None
+    HF_TOKEN: Optional[str] = (
+        os.getenv("HF_TOKEN")
+        or os.getenv("HUGGINGFACEHUB_API_TOKEN")
+        or os.getenv("HF_API_TOKEN")
+    )
     GROQ_API_KEY: Optional[str] = None
     GROQ_MODEL: str = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
     
@@ -76,9 +80,19 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: Optional[str] = None
     GEMINI_MODEL: str = "gemini-2.5-flash"
     
+    # Low-Memory / Free-Tier Deployment Flags
+    LOW_MEMORY_MODE: bool = os.getenv("LOW_MEMORY_MODE", "true").lower() in ("true", "1", "yes")
+    USE_CROSS_ENCODER: bool = os.getenv("USE_CROSS_ENCODER", "false").lower() in ("true", "1", "yes")
+
     # Embedding & Reranker models
-    EMBEDDING_PROVIDER: str = os.getenv("EMBEDDING_PROVIDER", "huggingface")  # Options: 'huggingface', 'mistral'
+    # Options: 'hf_api' (0MB RAM, recommended), 'gemini' (0MB RAM), 'mistral' (0MB RAM), 'lightweight' (0MB RAM), 'huggingface' (local PyTorch)
+    EMBEDDING_PROVIDER: str = os.getenv("EMBEDDING_PROVIDER", "hf_api")
     EMBEDDING_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
+    HF_INFERENCE_URL: str = os.getenv(
+        "HF_INFERENCE_URL",
+        "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+    )
+    GEMINI_EMBEDDING_MODEL: str = os.getenv("GEMINI_EMBEDDING_MODEL", "text-embedding-004")
     MISTRAL_EMBEDDING_MODEL: str = os.getenv("MISTRAL_EMBEDDING_MODEL", "mistral-embed")
     RERANKER_MODEL_NAME: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
     
