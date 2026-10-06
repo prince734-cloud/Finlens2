@@ -56,7 +56,7 @@ function renderInlineMarkdown(text) {
         </code>
       );
     }
-    return <React.Fragment key={index}>{part}</React.Fragment>;
+    return <React.Fragment key={index}>{part.replace(/\*/g, '')}</React.Fragment>;
   });
 }
 
