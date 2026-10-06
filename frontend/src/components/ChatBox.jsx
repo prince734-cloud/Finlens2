@@ -39,6 +39,100 @@ const INTENT_CONFIG = {
   },
 };
 
+function renderInlineMarkdown(text) {
+  const parts = text.split(/(\*\*.*?\*\*|__.*?__|\*[^*\n]+?\*|_[^_\n]+?_|`[^`]+`)/g);
+
+  return parts.map((part, index) => {
+    if ((part.startsWith('**') && part.endsWith('**')) || (part.startsWith('__') && part.endsWith('__'))) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    if ((part.startsWith('*') && part.endsWith('*')) || (part.startsWith('_') && part.endsWith('_'))) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+    if (part.startsWith('`') && part.endsWith('`')) {
+      return (
+        <code key={index} className="rounded bg-slate-800 px-1 py-0.5 font-mono text-emerald-300">
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+    return <React.Fragment key={index}>{part}</React.Fragment>;
+  });
+}
+
+function MarkdownContent({ content }) {
+  const lines = (content || '').split(/\r?\n/);
+  const blocks = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (!line.trim()) continue;
+
+    const heading = line.match(/^(#{1,6})\s+(.+)$/);
+    if (heading) {
+      const HeadingTag = `h${heading[1].length}`;
+      blocks.push(
+        <HeadingTag
+          key={index}
+          className="mt-3 text-base font-semibold text-white first:mt-0"
+        >
+          {renderInlineMarkdown(heading[2])}
+        </HeadingTag>
+      );
+      continue;
+    }
+
+    if (/^\s*([-*_]\s*){3,}$/.test(line)) {
+      blocks.push(<hr key={index} className="border-slate-700" />);
+      continue;
+    }
+
+    const unorderedItem = line.match(/^\s*[-*+]\s+(.+)$/);
+    if (unorderedItem) {
+      const items = [];
+      while (index < lines.length) {
+        const item = lines[index].match(/^\s*[-*+]\s+(.+)$/);
+        if (!item) break;
+        items.push(<li key={index}>{renderInlineMarkdown(item[1])}</li>);
+        index += 1;
+      }
+      index -= 1;
+      blocks.push(
+        <ul key={`list-${index}`} className="list-disc space-y-1 pl-5">
+          {items}
+        </ul>
+      );
+      continue;
+    }
+
+    const orderedItem = line.match(/^\s*\d+[.)]\s+(.+)$/);
+    if (orderedItem) {
+      const items = [];
+      while (index < lines.length) {
+        const item = lines[index].match(/^\s*\d+[.)]\s+(.+)$/);
+        if (!item) break;
+        items.push(<li key={index}>{renderInlineMarkdown(item[1])}</li>);
+        index += 1;
+      }
+      index -= 1;
+      blocks.push(
+        <ol key={`list-${index}`} className="list-decimal space-y-1 pl-5">
+          {items}
+        </ol>
+      );
+      continue;
+    }
+
+    blocks.push(
+      <p key={index} className="whitespace-pre-wrap">
+        {renderInlineMarkdown(line)}
+      </p>
+    );
+  }
+
+  return <div className="space-y-2 break-words text-sm leading-relaxed">{blocks}</div>;
+}
+
 export default function ChatBox({ selectedDoc, onClearSelectedDoc, onSelectDoc }) {
   const [sessionId, setSessionId] = useState(() => `session-${Date.now()}`);
   const [sessions, setSessions] = useState([]);
@@ -472,7 +566,11 @@ export default function ChatBox({ selectedDoc, onClearSelectedDoc, onSelectDoc }
                 )}
 
                 {/* Message Content */}
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                {isUser ? (
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                ) : (
+                  <MarkdownContent content={msg.content} />
+                )}
 
                 {/* Verified Citations List */}
                 {msg.citations && msg.citations.length > 0 && (
