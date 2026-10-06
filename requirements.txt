@@ -12,7 +12,7 @@ pydantic-settings>=2.5.0
 python-multipart>=0.0.12
 
 # Database & ORM
-SQLAlchemy>=2.0.35
+SQLAlchemy[asyncio]>=2.0.35
 aiosqlite>=0.20.0
 asyncpg>=0.29.0
 
